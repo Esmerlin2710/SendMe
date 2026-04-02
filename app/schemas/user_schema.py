@@ -1,17 +1,25 @@
 from pydantic import BaseModel, EmailStr
 from typing import Optional
+from datetime import datetime, timedelta
 
-class RegistroUsuario(BaseModel):
+class RegistroMinisterio(BaseModel):
     nombre: str
     apellido: str
     email: EmailStr
     password: str
     denominacion: str
     iglesia: str
-    es_ministerio: bool
-    especialidad: Optional[str] = None
-    descripcion: Optional[str] = None
+    especialidad: str
+    fecha_nacimiento: str
 
+class RegistroMiembro(BaseModel):
+    nombre: str
+    apellido: str
+    email: EmailStr
+    password: str
+    denominacion: str
+    iglesia: str
+    fecha_nacimiento: str
 
 
 class InicioUsuario(BaseModel):
@@ -25,7 +33,6 @@ class Perfil(BaseModel):
     email: EmailStr
     denominacion: str
     iglesia: str
-    es_ministerio: bool
     especialidad: Optional[str] = None
     descripcion: Optional[str] = None
     foto: Optional[str] = None

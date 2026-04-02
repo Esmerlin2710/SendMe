@@ -1,12 +1,10 @@
-from app.models.user_model import obtener_usuario_email, crear_usuario
+from app.models.user_model import obtener_usuario_email, crear_usuario_ministerio, crear_usuario_miembro
 from app.utils.security import hash_password, verificar_password
 from app.utils.jwt import crear_token
 
-def registrar_usuario(nombre, apellido, email, password, denominacion, iglesia, es_ministerio):
+def registrar_miembro(nombre, apellido, email, password, denominacion, iglesia, fecha_nacimiento):
     user = obtener_usuario_email(email)
 
-    if user[1]:
-        return {"error": "Ese correo ya esta registrado"}
     if user:
         return {"error": "El usuario ya existe"}
     if len(password) < 8:
@@ -16,7 +14,7 @@ def registrar_usuario(nombre, apellido, email, password, denominacion, iglesia, 
     hashed = hash_password(password)
 
     try:
-        crear_usuario(nombre, apellido, email, hashed, denominacion, iglesia, es_ministerio)
+        crear_usuario_miembro(nombre, apellido, email, hashed, denominacion, iglesia, fecha_nacimiento)
     except Exception as e:
         return {"error": f"Error al crear usuario: {str(e)}"}
 
@@ -40,5 +38,23 @@ def login_usuario(email, password):
         "access_token": token,
         "token_type": "bearer"
     }
+
+def registrar_ministerio(nombre, apellido, email, password, denominacion, iglesia, especialidad, fecha_nacimiento):
+    user = obtener_usuario_email(email)
+
+    if user:
+        return {"error": "El usuario ya existe"}
+    if len(password) < 8:
+        return {"error": "La clave tiene que ser mayor a 8 digitos"}
+    
+
+    hashed = hash_password(password)
+
+    try:
+        crear_usuario_ministerio(nombre, apellido, email, hashed, denominacion, iglesia, especialidad, fecha_nacimiento)
+    except Exception as e:
+        return {"error": f"Error al crear usuario: {str(e)}"}
+
+    return {"message": "Usuario creado"}
 
 
