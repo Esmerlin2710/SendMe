@@ -17,8 +17,7 @@ def register(data: RegistroMiembro):
 
 @router.post("/registro/ministerio")
 def registro_minis(data: RegistroMinisterio):
-    return registrar_ministerio(data.nombre,
-        data.apellido,
+    return registrar_ministerio(data.username,
         data.email,
         data.password,
         data.denominacion,

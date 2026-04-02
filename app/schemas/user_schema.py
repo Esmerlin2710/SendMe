@@ -3,8 +3,7 @@ from typing import Optional
 from datetime import datetime, timedelta
 
 class RegistroMinisterio(BaseModel):
-    nombre: str
-    apellido: str
+    username: str
     email: EmailStr
     password: str
     denominacion: str
