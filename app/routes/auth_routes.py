@@ -23,6 +23,7 @@ def registro_minis(data: RegistroMinisterio):
         data.password,
         data.denominacion,
         data.iglesia,
+        data.es_ministerio,
         data.especialidad,
         data.fecha_nacimiento
         )

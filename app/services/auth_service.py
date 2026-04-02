@@ -39,7 +39,7 @@ def login_usuario(email, password):
         "token_type": "bearer"
     }
 
-def registrar_ministerio(nombre, apellido, email, password, denominacion, iglesia, especialidad, fecha_nacimiento):
+def registrar_ministerio(nombre, apellido, email, password, denominacion, iglesia, es_ministerio, especialidad, fecha_nacimiento):
     user = obtener_usuario_email(email)
 
     if user:
@@ -51,7 +51,7 @@ def registrar_ministerio(nombre, apellido, email, password, denominacion, iglesi
     hashed = hash_password(password)
 
     try:
-        crear_usuario_ministerio(nombre, apellido, email, hashed, denominacion, iglesia, especialidad, fecha_nacimiento)
+        crear_usuario_ministerio(nombre, apellido, email, hashed, denominacion, iglesia, es_ministerio, especialidad, fecha_nacimiento)
     except Exception as e:
         return {"error": f"Error al crear usuario: {str(e)}"}
 
