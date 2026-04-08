@@ -1,25 +1,12 @@
 from pydantic import BaseModel, EmailStr
-from typing import Optional
-from datetime import datetime, timedelta
 
-class RegistroMinisterio(BaseModel):
-    username: str
-    email: EmailStr
-    password: str
-    denominacion: str
-    iglesia: str
-    es_ministerio: bool
-    especialidad: str
-    fecha_nacimiento: str
-
-class RegistroMiembro(BaseModel):
+class Registro(BaseModel):
+    tipo_cuenta: str
     nombre: str
-    apellido: str
     email: EmailStr
+    ubicacion: str
     password: str
-    denominacion: str
-    iglesia: str
-    fecha_nacimiento: str
+    verify_password: str
 
 
 class InicioUsuario(BaseModel):

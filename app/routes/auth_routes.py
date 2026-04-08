@@ -1,32 +1,20 @@
 from fastapi import APIRouter
-from app.schemas.user_schema import RegistroMiembro, InicioUsuario, RegistroMinisterio
-from app.services.auth_service import registrar_miembro, login_usuario, registrar_ministerio
+from app.schemas.user_schema import Registro, InicioUsuario
+from app.services.auth_service import registro, login
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
-@router.post("/registro/miembro")
-def register(data: RegistroMiembro):
-    return registrar_miembro(data.nombre,
-        data.apellido,
+@router.post("/registro")
+def registro_user(data: Registro):
+    return registro(data.tipo_cuenta,
+        data.nombre,
         data.email,
+        data.ubicacion,
         data.password,
-        data.denominacion,
-        data.iglesia,
-        data.fecha_nacimiento
+        data.verify_password
         )
 
-@router.post("/registro/ministerio")
-def registro_minis(data: RegistroMinisterio):
-    return registrar_ministerio(data.username,
-        data.email,
-        data.password,
-        data.denominacion,
-        data.iglesia,
-        data.es_ministerio,
-        data.especialidad,
-        data.fecha_nacimiento
-        )
 
 @router.post("/login")
-def login(data: InicioUsuario):
-    return login_usuario(data.email, data.password)
+def login_user(data: InicioUsuario):
+    return login(data.email, data.password)

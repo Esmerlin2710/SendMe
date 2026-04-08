@@ -1,9 +1,12 @@
-import pyodbc
+import psycopg2
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
 
 def obtener_conexion():
-    return pyodbc.connect(
-        "DRIVER={SQL Server};"
-        "SERVER=CLEIUSS\\SQLEXPRESS;"
-        "DATABASE=Nexelyion;"
-        "Trusted_Connection=yes;"
+    return psycopg2.connect(
+        os.getenv("DATABASE_URL")
     )
