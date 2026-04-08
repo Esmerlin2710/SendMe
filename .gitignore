@@ -7,6 +7,10 @@ venv/
 # Python
 __pycache__/
 *.pyc
+*.pyo
 
 # VS Code (opcional)
 .vscode/
+
+# Ignorar tu script local
+update_requirements.bat
