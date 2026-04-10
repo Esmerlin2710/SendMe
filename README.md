@@ -8,7 +8,7 @@ Incluye:
 
 - Registro de usuarios
 - Login con JWT
-- Base de datos en la nube (PostgreSQL - Railway)
+- Base de datos en la nube (PostgreSQL - Supabase)
 - Hash de contraseñas
 
 ---
@@ -18,7 +18,7 @@ Incluye:
 - Python
 - FastAPI
 - PostgreSQL
-- Railway (Base de datos en la nube)
+- Supabase (Base de datos en la nube)
 - psycopg2
 - JWT (python-jose)
 - Werkzeug (hash de contraseñas)
@@ -62,6 +62,10 @@ Crear un archivo `.env` en la raíz:
 
 ```
 DATABASE_URL=postgresql://user:password@host:port/database
+
+"""
+Cuando creen el archvio .env copian y pegan lo de arriba y me piden la url de la base de datos porque no es esa
+"""
 ```
 
 ---
@@ -74,7 +78,7 @@ pip install -r requirements.txt
 
 ---
 
-## ▶️ Ejecutar el proyecto
+## ▶️ Ejecutar el proyecto local
 
 ```bash
 uvicorn app.main:app --reload
@@ -83,7 +87,10 @@ uvicorn app.main:app --reload
 Servidor:
 
 ```
-http://127.0.0.1:8000
+http://127.0.0.1:8000 --Local
+https://sendme-pow6.onrender.com --Nube
+```
+
 ```
 
 ---
@@ -93,33 +100,39 @@ http://127.0.0.1:8000
 - Swagger:
 
 ```
-http://127.0.0.1:8000/docs
+
+http://127.0.0.1:8000/docs --Local
+https://sendme-pow6.onrender.com/docs --Nube
+
 ```
 
 - Redoc:
 
 ```
-http://127.0.0.1:8000/redoc
-```
+
+http://127.0.0.1:8000/redoc --Local
+https://sendme-pow6.onrender.com/redoc --Nube
+
+````
 
 ---
 
 ## 🗄️ Base de datos
 
-Base de datos PostgreSQL en Railway.
+Base de datos PostgreSQL en Supabase.
 
 ### Tabla `usuarios`
 
 ```sql
 CREATE TABLE usuarios (
     id SERIAL PRIMARY KEY,
-    tipo_cuenta TEXT NOT NULL,
-    nombre TEXT NOT NULL,
-    email TEXT UNIQUE NOT NULL,
-    ubicacion TEXT,
-    password_hash TEXT NOT NULL
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    tipo_cuenta VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-```
+````
 
 ---
 
@@ -231,7 +244,8 @@ Authorization: Bearer <token>
 Ir a:
 
 ```
-http://127.0.0.1:8000/docs
+http://127.0.0.1:8000/docs --Local
+https://sendme-pow6.onrender.com/docs --Nube
 ```
 
 ---
@@ -242,7 +256,19 @@ http://127.0.0.1:8000/docs
 fetch("http://127.0.0.1:8000/auth/login", {
   method: "POST",
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "application/json",         --LOCAL
+  },
+  body: JSON.stringify({
+    email: "test@gmail.com",
+    password: "12345678",
+  }),
+});
+
+javascript
+fetch("https://sendme-pow6.onrender.com/auth/login", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",         --NUBE
   },
   body: JSON.stringify({
     email: "test@gmail.com",
