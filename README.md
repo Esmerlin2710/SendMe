@@ -86,12 +86,8 @@ uvicorn app.main:app --reload
 
 Servidor:
 
-```
 http://127.0.0.1:8000 --Local
 https://sendme-pow6.onrender.com --Nube
-```
-
-```
 
 ---
 
@@ -108,12 +104,8 @@ https://sendme-pow6.onrender.com/docs --Nube
 
 - Redoc:
 
-```
-
 http://127.0.0.1:8000/redoc --Local
 https://sendme-pow6.onrender.com/redoc --Nube
-
-````
 
 ---
 
@@ -132,7 +124,7 @@ CREATE TABLE usuarios (
     tipo_cuenta VARCHAR(50) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-````
+```
 
 ---
 
@@ -237,6 +229,16 @@ Authorization: Bearer <token>
 
 ---
 
+### 🔗 Conexión con Frontend
+
+Para consumir la API desde el frontend, usar la URL:
+
+```javascript
+const API_URL = "https://sendme-pow6.onrender.com";
+```
+
+---
+
 ## 🧪 Cómo probar la API
 
 ### Opción 1: Swagger
@@ -284,6 +286,8 @@ fetch("https://sendme-pow6.onrender.com/auth/login", {
 - No subir `.env` a GitHub
 - Usar variables de entorno en producción
 - Cambiar `SECRET_KEY` en producción
+- La API en la nube puede tardar unos segundos en responder si está inactiva `(modo free)`.
+- No exponer credenciales en el frontend.
 
 ---
 
