@@ -5,7 +5,7 @@ from app.services.auth_service import registro, login
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
 @router.post("/registro")
-def registro_user(data: Registro):
+async def registro_user(data: Registro):
     return registro(data.tipo_cuenta,
         data.nombre,
         data.email,
@@ -16,5 +16,5 @@ def registro_user(data: Registro):
 
 
 @router.post("/login")
-def login_user(data: InicioUsuario):
+async def login_user(data: InicioUsuario):
     return login(data.email, data.password)
