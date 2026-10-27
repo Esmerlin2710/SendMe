@@ -1,10 +1,28 @@
-from jose import jwt
-from datetime import datetime, timedelta
 
-SECRET_KEY = "clave_super_secreta"
+import os
+from datetime import datetime, timedelta, timezone
+from jose import jwt
+
 ALGORITHM = "HS256"
 
+SECRET_KEY = os.environ.get("JWT_SECRET_KEY")
+
+if not SECRET_KEY or len(SECRET_KEY) < 32:
+    raise RuntimeError(
+        "JWT_SECRET_KEY no está configurada correctamente"
+    )
+
+
 def crear_token(data: dict):
-    data_copy = data.copy()
-    data_copy["exp"] = datetime.utcnow() + timedelta(hours=24)
-    return jwt.encode(data_copy, SECRET_KEY, algorithm=ALGORITHM)
+    payload = data.copy()
+
+    payload["exp"] = (
+        datetime.now(timezone.utc)
+        + timedelta(hours=24)
+    )
+
+    return jwt.encode(
+        payload,
+        SECRET_KEY,
+        algorithm=ALGORITHM
+    )
